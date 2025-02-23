@@ -1,0 +1,13 @@
+# Binary
+mini-ci-runner
+
+# Logs
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
