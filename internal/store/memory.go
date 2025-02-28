@@ -8,34 +8,35 @@ import (
 )
 
 type MemoryStore struct {
-	mu   sync.Mutex
-	jobs map[string]*job.Job
+	mu   sync.RWMutex
+	jobs map[string]job.Job
 }
 
 func NewMemoryStore() *MemoryStore {
 	return &MemoryStore{
-		jobs: make(map[string]*job.Job),
+		jobs: make(map[string]job.Job),
 	}
 }
 
 func (s *MemoryStore) Save(j *job.Job) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	s.jobs[j.ID] = j
+	s.jobs[j.ID] = *j
 }
 
 func (s *MemoryStore) Get(id string) (*job.Job, error) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
+	s.mu.RLock()
+	defer s.mu.RUnlock()
 	j, ok := s.jobs[id]
 	if !ok {
 		return nil, errors.New("job not found")
 	}
-	return j, nil
+	jobCopy := j
+	return &jobCopy, nil
 }
 
 func (s *MemoryStore) Update(j *job.Job) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	s.jobs[j.ID] = j
+	s.jobs[j.ID] = *j
 }
