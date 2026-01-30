@@ -114,5 +114,4 @@ Do whatever you want with it. Seriously.
 
 ---
 
-*Built with ☕ and mass amounts of procrastination*
 *README file written with the help of copilot*
