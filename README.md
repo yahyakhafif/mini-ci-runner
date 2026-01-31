@@ -114,4 +114,4 @@ Do whatever you want with it. Seriously.
 
 ---
 
-*README file written with the help of copilot*
+*README file was written with the help of copilot*
